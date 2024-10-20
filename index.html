@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thor con Ojos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      cursor: none;
+    }
+  </style>
+</head>
+
+<body class="flex items-center justify-center h-screen bg-gray-100" style="background: rgb(58,106,180); background: linear-gradient(90deg, rgba(58,106,180,0.7120098039215687) 57%, rgba(252,250,69,0.6559873949579832) 100%);">
+
+<img id="thunder" src="images/thunder-svgrepo-com%20(1).svg" alt="thunder" class="absolute w-20 h-20" style="pointer-events: none; z-index: 10">
+
+
+<div id="thor-container" class="relative w-72 h-96 flex items-center justify-center">
+
+  <div id="thor-noEyes">
+    <img src="images/thor-noEyes.svg" alt="Thor sin ojos" />
+  </div>
+
+  <div id="EYES" class="absolute h-20 w-20" style="top: 50px; left: 90px;">
+    <img src="images/EYES.svg" alt="Ojos de Thor" class="w-full h-full" />
+  </div>
+</div>
+
+<script>
+  const zanda = document.getElementById('thunder');
+  const eyes = document.getElementById('EYES');
+  const thorContainer = document.getElementById('thor-container');
+
+
+  const maxRadius = 30;
+
+
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+
+
+  const getThorCenter = () => {
+    const rect = thorContainer.getBoundingClientRect();
+    return {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2
+    };
+  };
+
+
+  document.addEventListener('mousemove', function(e) {
+
+    const offsetX = 20;
+    zanda.style.left = `${e.clientX - offsetX}px`;
+    zanda.style.top = `${e.clientY}px`;
+
+
+    const mouseXRatio = e.clientX / screenWidth;
+    const mouseYRatio = e.clientY / screenHeight;
+
+
+    const thorCenter = getThorCenter();
+
+
+    const deltaX = (mouseXRatio - 0.5) * 2 * maxRadius;
+    const deltaY = (mouseYRatio - 0.5) * 2 * maxRadius;
+
+    eyes.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+  });
+</script>
+
+</body>
+</html>
